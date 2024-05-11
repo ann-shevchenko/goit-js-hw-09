@@ -3,7 +3,7 @@ const input = form.querySelector("input");
 const textarea = form.querySelector("textarea");
 const formData = {
     email: "",
-    message: "",
+    message: ""
 }
 
 populateFormFields();
@@ -21,6 +21,8 @@ function handleSubmit(event) {
             });
         event.target.reset();
         localStorage.removeItem("feedback-form-state");
+        formData.email = "";
+        formData.message = "";
     }
 }
 
@@ -35,11 +37,13 @@ form.addEventListener ("submit", handleSubmit)
 form.addEventListener ("input", handleInput);
 
 function populateFormFields() {
-    const date = JSON.parse(localStorage.getItem("feedback-form-state"));
-    if(!date) {
+    const data = JSON.parse(localStorage.getItem("feedback-form-state"));
+    if(!data) {
         return;
     }
     const { email, message } = form.elements;
-    email.value = date.email;
-    message.value = date.message;
+    email.value = data.email;
+    message.value = data.message;
+    formData.email = data.email;
+    formData.message = data.message;
 }
